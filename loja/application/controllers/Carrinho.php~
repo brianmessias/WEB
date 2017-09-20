@@ -176,17 +176,87 @@
 				$dados_header['categorias'] = $this->categorias;
 				$this->load->view('html-header');
 				$this->load->view('header', $data_header);
-				$this->load->view('retorno_cartao',$data);
+				$this->load->view('retorno_cartao',$data_retorno);
 				$this->load->view('footer');
 				$this->load->view('html-footer');
 				$this->db->trans_complete();						
 			}else if($this->input->post('tipo_pagamento') == 'boleto'){
 				// LOGICA PARA PAGAMENTO COM BOLETO
+				$this->db->trans_start();
+				$dados['cliente'] = $sessao['cliente']->id;
+				$dados['produtos'] = $this->cart->total();
+				$dados['frete'] = (double)str_replace(",",".",$frete);
+				$dados['status'] = 0;
+				$dados['comentários'] = "Novo pedido inserido no sistema.";
+				$this->db->insert('pedidos',$dados);
+				$pedido=$this->db->insert_id();
+				foreach($this->cart->contents() as $item){
+					$dados_item['pedido'] = $pedido;
+					$dados_item['item'] = $item['id'];
+					$dados_item['quantidade'] = $item['qty'];
+					$dados_item['preco'] = $item['price'];
+					$this->db->insert('itens_pedidos',$dados_item);				
+				}
+				$total_a_cobrar = (double)($this->cart->total()) + (double)(str_replace(",",".",$frete));
+				require_once('./locaweb-gateway-php/LocawebGateway.php');
+				$array_pedido = array('numero'=>$pedido,'total'=>$total_a_cobrar,'moeda'=>'real', 'descricao'=>'Pedido: '.$pedido);
+				$vencimento_boleto = date('dmY', strtotime('+1 week'));
+				//estabelecendo uma semana de prazo para o vencimento do boleto
+				$array_pagamento = array('meio_pagamento'=>'bleto_itau','data_vencimento'=>$vencimento_boleto);
+				$array_comprador = array(
+					'nome'=>$sessao['cliente']->nome,
+					'documento'=>$sessao['cliente']->cpf,
+					'endereco'=>$sessao['cliente']->rua,
+					'numero'=>$sessao['cliente']->numero,
+					'cep'=>$sessao['cliente']->cep,
+					'bairro'=>$sessao['cliente']->bairro,
+					'cidade'=>$sessao['cliente']->cidade,
+					'estado'=>$sessao['cliente']->estado				
+					);
+				$array_transacao = array(
+					'url_retorno'=>base_url('carrinho/finalizar_compra'),
+					'capturar'=>'true',
+					'pedido'=>$array_pedido,
+					'pagamento'=>$array_pagamento,
+					'comprador'=>$array_comprador				
+					);
+				$transacao = LocawebGateway::criar($array_transacao)->sendRequest();
+				if(!$transacao->transacao->erro){
+					$this->db->trans_commit();
+					$this->cart->destroy();
+					//ENVIO DE E-MAIL DE CONFIRMAÇÃO
+					$dados_email['pedido'] = $array_pedido;	
+					$dados_email['comprador'] = $array_comprador;
+					$dados_email['transacao'] = $transacao;	
+					$this->enviar_confirmacao($dados_email,$sessao['cliente']->email);		
+				}else{
+					$this->db->trans_rollback();				
+				}
+				$dados_retorno['transacao'] = $transacao;
+				$dados_header['categorias'] = $this->categorias;
+				$this->load->view('html-header');
+				$this->load->view('header', $data_header);
+				$this->load->view('retorno_boleto',$data_retorno);
+				$this->load->view('footer');
+				$this->load->view('html-footer');
+				$this->db->trans_complete();
 			}else{
 				redirect(base_url('pagar-e-finalizar-compra'));			
 			}		
 		}else{
 			redirect(base_url('login'));		
 		}	
+	}
+	public enviar_confirmacao($dados,$para){
+			$this->load->library('email');
+			$this->email->from("loja@terceirao.cefetmg.br","Lojã do Terceirão");
+			$this->email->to($para);
+			$this->email->subject('Lojão do Terceirão - Pedido: '.$dados['pedido']['numero']);
+			$this->email->message($this->load->view('emails/novo_pedido',$dados,TRUE));
+			if($this->emial->send()){
+				return "email enviado";			
+			}else{
+				return $this->email->print_debugger();			
+			}
 	}		
 }

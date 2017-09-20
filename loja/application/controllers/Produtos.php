@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct  script  access  allowed');
-  class Produtos_model extends CI_Controler{
+  class Produtos extends CI_Controller{
   		public $categorias;
 		public function __construct(){
 			parent::__construct();	

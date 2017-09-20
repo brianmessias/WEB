@@ -25,7 +25,7 @@
 			form_input(array('id'=>'telefone','name'=>'telefone','Placeholder'=>'Telefone','value'=>set_value('telefone'))) .
 			form_input(array('id'=>'celular','name'=>'celular','Placeholder'=>'Celular','value'=>set_value('celular'))) .
 			form_input(array('id'=>'email','name'=>'email','Placeholder'=>'E-mail','value'=>set_value('email'))) .
-			form_input(array('id'=>'senha','name'=>'senha','Placeholder'=>'Senha','value'=>set_value('senha'))) .
+			form_password(array('id'=>'senha','name'=>'senha','Placeholder'=>'Senha','value'=>set_value('senha'))) .
 			form_submit('btn_cadastrar','Cadastrar') .
 			"<div>". 
 			form_close();			
@@ -38,13 +38,13 @@
 		$('#cep').mask('00000-000', {reverse: true});
 		$('#telefone').mask('(00)0000.0000');
 		$('#celular').mask('(00)00000.0000');
-		$('data_nascimento').mask('00/00/0000', {reverse: true});
+		$('#data_nascimento').mask('00/00/0000', {reverse: true});
 		$('#sexo').mask('A', {reverse: true});
 		$('#cep').blur(function (){
 			$.getJSON("https://viacep.com.br/ws/"+$("#cep").val()+"json",
 			function(dados){
 				if(!("erro" in dados)){
-					$("#rua").va(dados.logradouro);
+					$("#rua").val(dados.logradouro);
 					$("#bairro").val(dados.bairro);
 					$("#cidade").val(dados.localidade);
 					$("#estado").val(dados.uf);

@@ -2,7 +2,8 @@
 <ul class="dropdown-menu">	
 	<?php 
 		foreach($categorias as $categoria){
-			echo "<li>".anchor(base_url("categoria/".$categoria->id . "/" . limpar($categoria->titulo)),$categoria->titulo)."</li>";
+			echo "<li>".anchor(base_url("categoria/".$categoria->id . "/" . 
+			limpar($categoria->titulo)),$categoria->titulo)."</li>";
 		}	
 	?>
 </ul>

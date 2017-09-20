@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="utf-8">
-    <tittle> Lojão do Terceirão </tittle>
+    
     <?php
       echo meta(array('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1.0')) .
       link_tag('assets/css/bootstrap.min.css') .

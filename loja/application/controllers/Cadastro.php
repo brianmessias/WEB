@@ -101,12 +101,23 @@
 					$this->session->set_userdata($dadosSessao);
 					redirect(base_url("produtos"));				
 				}else{
-					$dadosSessao['cliente'] = NULL;
-					$dadosSessao['logado'] = FALSE;
-					$this->session->set_userdata($dadosSessao);
-					redirect(base_url("login"));				
-				}			
-			}		
+					$this->db->where('email',$this->input->post('email'));
+					$this->db->where('senha',$this->input->post('senha'));
+					$this->db->where('status',1);
+					$cliente = $this->db->get('administracao')->result();
+					if(count($cliente)==1){
+						$dadosSessao['cliente'] = $cliente[0];
+						$dadosSessao['logado'] = TRUE;
+						$this->session->set_userdata($dadosSessao);
+						redirect(base_url("administracao"));	
+					}else {
+						$dadosSessao['cliente'] = NULL;
+						$dadosSessao['logado'] = FALSE;
+						$this->session->set_userdata($dadosSessao);
+						redirect(base_url("login"));	
+					}			
+				}		
+			}
 		}
 		public function logout(){
 			$dadosSessao['cliente'] = NULL;

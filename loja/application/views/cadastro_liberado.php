@@ -6,7 +6,7 @@
 	<div class="row-fluid">
 		<p>Seu cadastro foi confirmado com sucesso.<br>
 			Você já pode fazer compras.<br>
-			<a href="<php echo base_url('produtos') ?>">Ver os produtos da loja.</a>		
+			<a href="<php echo base_url('produtos')?>">Ver os produtos da loja.</a>		
 		</p>
 	</div>
 </div>
