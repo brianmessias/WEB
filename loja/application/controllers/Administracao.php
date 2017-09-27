@@ -10,9 +10,19 @@
 		$this->load->helper('text');
 		$data_header['categorias'] = $this->categorias;
 		$this->load->view('html-header',$data_header);
-		$this->load->view('header');
-		$this->load->view('administracao');
+		$this->load->view('Adm/headerAdm');
+		$this->load->view('Adm/administracao');
 		$this->load->view('footer');
 		$this->load->view('html-footer');		
+		}
+		
+		public function categorias(){
+			$this->load->helper('text');
+			$data_header['categorias'] = $this->categorias;
+			$this->load->view('html-header',$data_header);
+			$this->load->view('Adm/headerAdm');
+			$this->load->view('Adm/categorias',$data_header);
+			$this->load->view('footer');
+			$this->load->view('html-footer');	
 		}
 	}
