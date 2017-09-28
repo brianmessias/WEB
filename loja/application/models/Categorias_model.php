@@ -12,7 +12,7 @@
       return $this->db->get('categorias')->result();
     }
     public function detalhes_categorias($id) {
-		$this->db->whre('id',$id);
+		$this->db->where('id',$id);
 		return $this->db->get('categorias')->result();   
     }	
     public function listar_produtos_categoria($id){

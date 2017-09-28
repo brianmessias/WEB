@@ -14,7 +14,7 @@
 			echo "<div class='span4 caixacategoria'>" . 
 			heading($destaque->titulo,3) . 
 			"<p>".word_limiter($destaque->descricao,20) ."</p>" . 
-			anchor(base_url("produto/".$destaque->id ."/".limpar($destaque->titulo)), "Ver produto", array('class'=>'btn')) . "</div>";
+			anchor(base_url("produtos/produto/".$destaque->id ."/".limpar($destaque->titulo)), "Ver produto", array('class'=>'btn')) . "</div>";
 			if($contador % 3 == 0){
 				echo "</div><div class='row-fluid'>";			
 			}		

@@ -13,7 +13,7 @@
         $contador++;
         echo "<div class='span4 caixacategoria'>";
         echo heading($categoria->titulo,3);
-        echo "<p>".word_limiter($categoria->descricao,40) . "</p>";
+        echo "<p>". word_limiter($categoria->descricao,40) . "</p>";
         echo anchor(base_url("categoria/".$categoria->id . "/" . limpar($categoria->titulo)), "Ver Produtos", array('class' => 'btn'));
         echo "</div>";
         if($contador%3 == 0){

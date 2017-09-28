@@ -9,7 +9,7 @@
     }
     public function listar_categorias(){
       $this->db->order_by('titulo','ASC');
-      return $this->db->get('caregorias')->result();
+      return $this->db->get('categorias')->result();
     }
     public function detalhes_categorias($id) {
 		$this->db->whre('id',$id);

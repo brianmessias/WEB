@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct  script  access  allowed');
-  class Produtos_model extends CI_Controller{
+  class Produtos extends CI_Controller{
   		public $categorias;
 		public function __construct(){
 			parent::__construct();	
@@ -18,10 +18,10 @@
 		}
 		public function produto($id){
 		$data_header['categorias'] = $this->categorias;
-		$data_body['produtos'] = $this->modelprodutos->detalhes_produto($id);
+		$data_body['produto'] = $this->modelprodutos->detalhes_produto($id);
 		$this->load->view('html-header');
 		$this->load->view('header',$data_header);
-		$this->load->view('categorias',$data_header);
+		$this->load->view('produto',$data_body);
 		$this->load->view('footer');
 		$this->load->view('html-footer');
 		}

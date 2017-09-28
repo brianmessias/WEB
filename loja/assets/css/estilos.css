@@ -19,3 +19,21 @@
 .linha-carrinho input[type=text]{height: 40px; width: 70%};
 .miniatura{width: 80px; vertical-align: middle;}
 .texto-direita{text-align: right;}
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    
+    text-align: left;
+    padding: 8px;
+}
+
+table a{
+	 padding: 8px;
+}
+

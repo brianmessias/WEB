@@ -21,7 +21,7 @@
 		$data_body['produtos'] = $this->modelprodutos->detalhes_produto($id);
 		$this->load->view('html-header');
 		$this->load->view('header',$data_header);
-		$this->load->view('categorias',$data_header);
+		$this->load->view('produto',$data_body);
 		$this->load->view('footer');
 		$this->load->view('html-footer');
 		}
