@@ -15,8 +15,8 @@
 						echo "<tr>" .
 									"<td>" . $categoria->titulo . "</td>" .
 									"<td>" . $categoria->descricao. "</td>" .
-									"<td>" . anchor(base_url("administracao/editCategoria/" . $categoria->id), "Editar ",array('class' => 'btn btn-warning')) .	
-												anchor(base_url("administracao/excCategoria/" . $categoria->id), "Excluir", array('class' => 'btn btn-danger')) . "</td>" .
+									"<td>" . anchor(base_url("categoriaAdm/editCategoria/" . $categoria->id), "Editar ",array('class' => 'btn btn-warning')) .	
+												anchor(base_url("categoriaAdm/excCategoria/" . $categoria->id), "Excluir", array('class' => 'btn btn-danger')) . "</td>" .
 								"</tr>";
 			
 					}
@@ -28,7 +28,7 @@
 					echo "<tr><td></td><td>" .
 						
 					
-						"<td>" . anchor(base_url("administracao/novaCategoria"), "Novo Item", array('class' => 'btn btn-primary')) . "</td></tr>" ;
+						"<td>" . anchor(base_url("categoriaAdm/novaCategoria"), "Novo Item", array('class' => 'btn btn-primary')) . "</td></tr>" ;
 					
 				?>							
 				</table>

@@ -10,7 +10,7 @@
 			$data_header['categorias'] = $this->categorias;
 			if(null !=$this->session->userdata('logado')){
 				$sessao = $this->session->userdata();
-				$estado = $sessap['cliente']->estado;
+				$estado = $sessao['cliente']->estado;
 				$data['frete'] = $this->frete_transportadora($estado);			
 			}else{
 				$data['frete'] = null;			
@@ -56,7 +56,7 @@
 			$peso += ($item['peso'] * $item['qty']);		
 		}
 		$peso = ceil($peso/1000);
-		$custo_frete = $this->db->query("SELECT *FROM tb_transporte_preco Where ucase(uf) = Ucase('".$estado_destino."') AND peso_ate >= ".$peso."ORDER BY peso_ate DESC LIMIT 1")->result();
+		$custo_frete = $this->db->query("SELECT * FROM tb_transporte_preco Where ucase(uf) = Ucase('".$estado_destino."') AND peso_ate >= ".$peso."ORDER BY peso_ate DESC LIMIT 1")->result();
 		if(count($custo_frete < 1)){		
 			$custo_frete = $this->db->query("SELECT * FROM tb_transporte_preco WHERE ucase(uf) = ucase('".$estado_destino."') ORDER BY peso_ate DESC LIMIT 1")->result();
 			print_r($custo_frete);	
@@ -247,7 +247,7 @@
 			redirect(base_url('login'));		
 		}	
 	}
-	public enviar_confirmacao($dados,$para){
+	public function enviar_confirmacao($dados,$para){
 			$this->load->library('email');
 			$this->email->from("loja@terceirao.cefetmg.br","Lojã do Terceirão");
 			$this->email->to($para);

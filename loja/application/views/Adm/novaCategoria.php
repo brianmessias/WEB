@@ -11,7 +11,7 @@
 							<td width='50%'><b>Descrição<b></td>
 						</tr>			
 							<?php 
-								echo form_open(base_url("administracao/incluirCategoria")) .
+								echo form_open(base_url("categoriaAdm/incluirCategoria")) .
 										 "<tr><td>" . form_input('txt_titulo') . "</td>" .								
 										 "<td>" . form_textarea('txt_descricao') . "<td><tr>" . 
 										 "<tr><td>" . form_submit("btn-enviar", "Incluir Nova Categoria") . "</td></tr>";

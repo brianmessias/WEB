@@ -17,4 +17,17 @@
 		$this->db->or_ike('descricao',$buscar);
 		return $this->db->get('produtos')->result();			  
 	  }
+	  
+	   public function listar_produtos(){
+      $this->db->order_by('titulo','ASC');
+      return $this->db->get('produtos')->result();
+    }
+    
+    	public function listar_produtos_categoria($id){
+		$this->db->select('*');
+		$this->db->from('categorias');
+		$this->db->join('produtos_categoria','produtos_categoria.categoria = categorias.id AND produtos_categoria.produto = '.$id);
+		$dados['categorias'] = $this->db->get()->result();
+		return $dados;    
+    }
   }

@@ -12,15 +12,16 @@
       return $this->db->get('categorias')->result();
     }
     public function detalhes_categorias($id) {
-		$this->db->whre('id',$id);
+		$this->db->where('id',$id);
 		return $this->db->get('categorias')->result();   
     }	
-    public function listar_produtos_categoria($id){
-		$dados['detalhes'] = $this->detalhes_categoria($id);
+   	
+   public function listar_produtos_categoria($id){
+		$dados['detalhes'] = $this->detalhes_produto($id);
 		$this->db->select('*');
-		$this->db->from('produtos');
-		$this->db->join('produtos_categoria','produtos_categoria.produto = produtos.id AND produtos_categoria.categoria = '.$id);
-		$dados['produtos'] = $this->db->get()->result();
+		$this->db->from('categorias');
+		$this->db->join('produtos_categoria','produtos_categoria.categoria = categorias.id AND produtos_categoria.produto = '.$id);
+		$dados['categorias'] = $this->db->get()->result();
 		return $dados;    
     }
   }

@@ -1,7 +1,9 @@
 <div id="homebody">			
 		<div class="row-fluid">		
 			<div class="table table-bordred table-striped">
-			<h1>Categorias</h1>
+			<div class="alinhado-centro borda-base espaco-vertical">
+					<h1>Editar Categoria</h1>
+				</div>
 				<table>
 					<table>
 						<tr>

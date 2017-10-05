@@ -11,7 +11,7 @@
 							<td width='50%'><b>Descrição<b></td>
 						</tr>			
 							<?php 
-								echo form_open(base_url("administracao/alterarCategoria")) .
+								echo form_open(base_url("categoriaAdm/alterarCategoria")) .
 										 "<tr><td>" . form_input('txt_titulo',$categoria[0]->titulo) . "</td>" .
 										 					form_hidden('id',$categoria[0]->id) .
 										 "<td>" . form_textarea('txt_descricao',$categoria[0]->descricao) . "<td><tr>" . 
