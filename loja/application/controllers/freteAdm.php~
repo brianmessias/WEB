@@ -1,0 +1,19 @@
+<?php defined('BASEPATH') OR exit('No direct  script  access  allowed');
+  class freteAdm extends CI_Controller{
+  		public $categorias;
+		public function __construct(){
+			parent::__construct();	
+			$this->load->model('fretes_model','modelfretes');
+			$this->fretes = $this->modelfretes->listar_fretes();
+		}
+		
+		public function index(){
+			$data_header['fretes'] = $this->produtos;
+			$this->load->view('html-header',$data_header);
+			$this->load->view('Adm/headerAdm');
+			$this->load->view('Adm/fretes',$data_header);
+			$this->load->view('footer');
+			$this->load->view('html-footer');
+		}
+	
+	}
